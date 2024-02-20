@@ -1,12 +1,18 @@
 FROM python:3
 
+# Set environment variables
+ENV PYTHONUNBUFFERED 1
+
+COPY requirements.txt /
+
+# Install dependencies.
+RUN pip install -r /requirements.txt
+
+# Set work directory.
+RUN mkdir /code
 WORKDIR /code
 
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
-
+# Copy project code.
 COPY . /code/
 
-# Копируем wait-for-it в директорию /usr/local/bin/
-COPY wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod +x /usr/local/bin/wait-for-it
+EXPOSE 80

@@ -4,10 +4,11 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: olzhas  # Замените "examplepassword" на свой пароль
+      POSTGRES_PASSWORD: olzhas
+
   dj:
     container_name: dj
-    build: django
+    build: ./django
     command: python manage.py runserver 0.0.0.0:80
     volumes:
       - ./django:/code
@@ -20,5 +21,10 @@ services:
       DJANGO_DB_PORT: 5432
       DJANGO_DB_NAME: postgres
       DJANGO_DB_USER: postgres
-      DJANGO_DB_PASSWORD: olzhas  # Замените "examplepassword" на свой пароль
+      DJANGO_DB_PASSWORD: olzhas
 
+  ng:
+    container_name: ng
+    build: angular
+    ports:
+      - "8080:80"

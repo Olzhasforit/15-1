@@ -22,6 +22,11 @@ services:
       DJANGO_DB_NAME: postgres
       DJANGO_DB_USER: postgres
       DJANGO_DB_PASSWORD: olzhas
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-h", "db", "-p", "5432"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   ng:
     container_name: ng

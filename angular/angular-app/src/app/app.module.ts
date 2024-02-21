@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common'; // Добавленный имп
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, TaskListComponent],
@@ -16,6 +17,8 @@ import { TaskListComponent } from './task-list/task-list.component';
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,3 +5,7 @@ export interface Task {
   created_on: Date;
   due_date: Date;
 }
+export class Task {
+  // другие свойства
+  isEditable: boolean = false;
+}

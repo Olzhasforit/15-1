@@ -1,11 +1,38 @@
 <h2>My Tasks</h2>
-
+<div *ngIf="(tasks$ | async) as tasks; else loading">
   <ul>
-    <li *ngFor="let task of tasks$ | async">
-      <ul>
-        <li>Title: {{ task.title }}</li>
-        <li>Content: {{ task.content }}</li>
-        <li>Due Date: {{ task.due_date }}</li>
-      </ul>
+    <li *ngFor="let task of tasks">
+      <span>{{ task.title }}</span>
+      <span>{{ task.content }}</span>
+      <span>{{ task.due_date }}</span>
+      <button type="button" (click)="updateTask(task)">Update</button>
+      <button type="button" (click)="deleteTask(task.id)">Delete</button>
     </li>
   </ul>
+</div>
+<ng-template #loading>Loading...</ng-template>
+
+<form [formGroup]="task_form" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" formControlName="title" />
+
+  <div *ngIf="task_form.get('title')?.invalid && task_form.get('title')?.hasError('required')">
+    Title is required
+  </div>
+
+  <label for="content">Content:</label>
+  <input type="text" id="content" name="content" formControlName="content" />
+
+  <div *ngIf="task_form.get('content')?.invalid && task_form.get('content')?.hasError('required')">
+    Content is required
+  </div>
+
+  <label for="due_date">Due Date:</label>
+  <input type="text" id="due_date" name="due_date" formControlName="due_date" />
+
+  <div *ngIf="task_form.get('due_date')?.invalid && task_form.get('due_date')?.hasError('required')">
+    Due date is required
+  </div>
+
+  <button type="submit" [disabled]="task_form.invalid">Add Task</button>
+</form>
